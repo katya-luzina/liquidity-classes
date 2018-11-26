@@ -20,7 +20,8 @@ LOAD DATA
 	FIELDS TERMINATED by '\t'
     LINES TERMINATED by '\r\n';
 
-#не работает скрипт для загрузки данных из файла, выдает следующую ошибку 1290, на форумах не получилось найти решения (SHOW VARIABLES LIKE 'secure_file_priv';), поэтому пришлось вставлять данные через insert
+#не работает скрипт для загрузки данных из файла, выдает следующую ошибку 1290, на форумах не получилось найти 
+#решения (SHOW VARIABLES LIKE 'secure_file_priv';), поэтому пришлось вставлять данные через insert
 INSERT INTO security_type VALUES
 (NULL,'акция обыкновенная','ABRD'),
 (NULL,'акция обыкновенная','ACKO'),
@@ -55,8 +56,7 @@ INSERT INTO security_type VALUES
 (NULL,'акция обыкновенная','CHKZ'),
 (NULL,'акция обыкновенная','CHMF'),
 (NULL,'акция обыкновенная','CHMK'),
-(NULL,'акция обыкновенная','CLSB');
-INSERT INTO security_type VALUES
+(NULL,'акция обыкновенная','CLSB'),
 (NULL,'акция привилегированная','CLSBP'),
 (NULL,'акция обыкновенная','CNTL'),
 (NULL,'акция привилегированная','CNTLP'),
@@ -88,8 +88,7 @@ INSERT INTO security_type VALUES
 (NULL,'акция обыкновенная','HALS'),
 (NULL,'акция обыкновенная','HIMC'),
 (NULL,'акция привилегированная','HIMCP'),
-(NULL,'акция обыкновенная','HYDR');
-INSERT INTO security_type VALUES
+(NULL,'акция обыкновенная','HYDR'),
 (NULL,'акция обыкновенная','IDVP'),
 (NULL,'акция обыкновенная','IGST'),
 (NULL,'акция привилегированная','IGSTP'),
@@ -124,8 +123,7 @@ INSERT INTO security_type VALUES
 (NULL,'акция обыкновенная','KTSB'),
 (NULL,'акция привилегированная','KTSBP'),
 (NULL,'акция обыкновенная','KUBE'),
-(NULL,'акция обыкновенная','KUNF');
-INSERT INTO security_type VALUES
+(NULL,'акция обыкновенная','KUNF'),
 (NULL,'акция обыкновенная','KUZB'),
 (NULL,'акция обыкновенная','KZMS'),
 (NULL,'акция обыкновенная','KZOS'),
@@ -157,8 +155,7 @@ INSERT INTO security_type VALUES
 (NULL,'акция обыкновенная','MOBB'),
 (NULL,'акция обыкновенная','MOEX'),
 (NULL,'акция обыкновенная','MORI'),
-(NULL,'акция обыкновенная','MRKC');
-INSERT INTO security_type VALUES
+(NULL,'акция обыкновенная','MRKC'),
 (NULL,'акция обыкновенная','MRKK'),
 (NULL,'акция обыкновенная','MRKP'),
 (NULL,'акция обыкновенная','MRKS'),
@@ -188,8 +185,7 @@ INSERT INTO security_type VALUES
 (NULL,'акция обыкновенная','NNSB'),
 (NULL,'акция привилегированная','NNSBP'),
 (NULL,'акция обыкновенная','NPOF'),
-(NULL,'акция обыкновенная','NSVZ');
-INSERT INTO security_type VALUES
+(NULL,'акция обыкновенная','NSVZ'),
 (NULL,'акция обыкновенная','NVTK'),
 (NULL,'акция обыкновенная','OBUV'),
 (NULL,'акция обыкновенная','ODVA'),
@@ -225,8 +221,7 @@ INSERT INTO security_type VALUES
 (NULL,'акция обыкновенная','RTKM'),
 (NULL,'акция привилегированная','RTKMP'),
 (NULL,'акция обыкновенная','RTSB'),
-(NULL,'акция привилегированная','RTSBP');
-INSERT INTO security_type VALUES
+(NULL,'акция привилегированная','RTSBP'),
 (NULL,'корпоративная облигация','RU000A0JQ1H3'),
 (NULL,'корпоративная облигация','RU000A0JQ557'),
 (NULL,'корпоративная облигация','RU000A0JQ5C5'),
@@ -257,12 +252,10 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JR3H8'),
 (NULL,'корпоративная облигация','RU000A0JR3L0'),
 (NULL,'корпоративная облигация','RU000A0JR3M8'),
-(NULL,'корпоративная облигация','RU000A0JR4J2');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JR4J2'),
 (NULL,'корпоративная облигация','RU000A0JR4U9'),
 (NULL,'корпоративная облигация','RU000A0JR5F7'),
-(NULL,'корпоративная облигация','RU000A0JR6S8');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JR6S8'),
 (NULL,'корпоративная облигация','RU000A0JR878'),
 (NULL,'корпоративная облигация','RU000A0JR8L9'),
 (NULL,'корпоративная облигация','RU000A0JR8P0'),
@@ -294,8 +287,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JRMC0'),
 (NULL,'корпоративная облигация','RU000A0JRMW8'),
 (NULL,'корпоративная облигация','RU000A0JRSW5'),
-(NULL,'корпоративная облигация','RU000A0JRSX3');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JRSX3'),
 (NULL,'корпоративная облигация','RU000A0JRTN2'),
 (NULL,'корпоративная облигация','RU000A0JRU20'),
 (NULL,'корпоративная облигация','RU000A0JRU46'),
@@ -321,8 +313,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JS4L7'),
 (NULL,'корпоративная облигация','RU000A0JS4Z7'),
 (NULL,'корпоративная облигация','RU000A0JS5A7'),
-(NULL,'корпоративная облигация','RU000A0JS5B5');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JS5B5'),
 (NULL,'корпоративная облигация','RU000A0JS5E9'),
 (NULL,'корпоративная облигация','RU000A0JS5F6'),
 (NULL,'корпоративная облигация','RU000A0JS5L4'),
@@ -355,8 +346,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JT7T2'),
 (NULL,'корпоративная облигация','RU000A0JT874'),
 (NULL,'корпоративная облигация','RU000A0JT8R4'),
-(NULL,'корпоративная облигация','RU000A0JT8T0');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JT8T0'),
 (NULL,'корпоративная облигация','RU000A0JT940'),
 (NULL,'корпоративная облигация','RU000A0JT965'),
 (NULL,'корпоративная облигация','RU000A0JTB96'),
@@ -390,8 +380,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JTW83'),
 (NULL,'корпоративная облигация','RU000A0JTWT9'),
 (NULL,'корпоративная облигация','RU000A0JTX09'),
-(NULL,'корпоративная облигация','RU000A0JTXP5');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JTXP5'),
 (NULL,'корпоративная облигация','RU000A0JTXQ3'),
 (NULL,'корпоративная облигация','RU000A0JTYJ6'),
 (NULL,'корпоративная облигация','RU000A0JTYK4'),
@@ -424,8 +413,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JUC19'),
 (NULL,'корпоративная облигация','RU000A0JUC92'),
 (NULL,'корпоративная облигация','RU000A0JUCA9'),
-(NULL,'корпоративная облигация','RU000A0JUCH4');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JUCH4'),
 (NULL,'корпоративная облигация','RU000A0JUCJ0'),
 (NULL,'корпоративная облигация','RU000A0JUCX1'),
 (NULL,'корпоративная облигация','RU000A0JUD00'),
@@ -460,8 +448,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JUQW3'),
 (NULL,'корпоративная облигация','RU000A0JURP5'),
 (NULL,'корпоративная облигация','RU000A0JURQ3'),
-(NULL,'корпоративная облигация','RU000A0JURT7');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JURT7'),
 (NULL,'корпоративная облигация','RU000A0JUT69'),
 (NULL,'корпоративная облигация','RU000A0JUTC9'),
 (NULL,'корпоративная облигация','RU000A0JUUB9'),
@@ -495,8 +482,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JV409'),
 (NULL,'корпоративная облигация','RU000A0JV4R9'),
 (NULL,'корпоративная облигация','RU000A0JV508'),
-(NULL,'корпоративная облигация','RU000A0JV664');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JV664'),
 (NULL,'корпоративная облигация','RU000A0JV755'),
 (NULL,'корпоративная облигация','RU000A0JV7G5'),
 (NULL,'корпоративная облигация','RU000A0JVAJ2'),
@@ -532,8 +518,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JVT43'),
 (NULL,'корпоративная облигация','RU000A0JVTM6'),
 (NULL,'корпоративная облигация','RU000A0JVTQ7'),
-(NULL,'корпоративная облигация','RU000A0JVU81');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JVU81'),
 (NULL,'корпоративная облигация','RU000A0JVUG6'),
 (NULL,'корпоративная облигация','RU000A0JVUL6'),
 (NULL,'корпоративная облигация','RU000A0JVVA7'),
@@ -566,8 +551,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JWC25'),
 (NULL,'корпоративная облигация','RU000A0JWDA3'),
 (NULL,'корпоративная облигация','RU000A0JWDB1'),
-(NULL,'корпоративная облигация','RU000A0JWDC9');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JWDC9'),
 (NULL,'корпоративная облигация','RU000A0JWF30'),
 (NULL,'корпоративная облигация','RU000A0JWF71'),
 (NULL,'корпоративная облигация','RU000A0JWGW0'),
@@ -604,8 +588,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0JWZT6'),
 (NULL,'корпоративная облигация','RU000A0JX0L8'),
 (NULL,'корпоративная облигация','RU000A0JX1C5'),
-(NULL,'корпоративная облигация','RU000A0JX1S1');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0JX1S1'),
 (NULL,'корпоративная облигация','RU000A0JX1T9'),
 (NULL,'корпоративная облигация','RU000A0JX2B5'),
 (NULL,'корпоративная облигация','RU000A0JX3M0'),
@@ -640,8 +623,7 @@ INSERT INTO security_type VALUES
 (NULL,'корпоративная облигация','RU000A0ZYX28'),
 (NULL,'корпоративная облигация','RU000A0ZZ4T1'),
 (NULL,'корпоративная облигация','RU000A0ZZ4Z8'),
-(NULL,'корпоративная облигация','RU000A0ZZ505');
-INSERT INTO security_type VALUES
+(NULL,'корпоративная облигация','RU000A0ZZ505'),
 (NULL,'корпоративная облигация','RU000A0ZZ6K5'),
 (NULL,'корпоративная облигация','RU000A0ZZ7G1'),
 (NULL,'корпоративная облигация','RU000A0ZZ7H9'),
@@ -674,8 +656,7 @@ INSERT INTO security_type VALUES
 (NULL,'акция привилегированная','SNGSP'),
 (NULL,'акция обыкновенная','STSB'),
 (NULL,'акция привилегированная','STSBP'),
-(NULL,'акция обыкновенная','SVAV');
-INSERT INTO security_type VALUES
+(NULL,'акция обыкновенная','SVAV'),
 (NULL,'акция обыкновенная','SZPR'),
 (NULL,'акция обыкновенная','TANL'),
 (NULL,'акция привилегированная','TANLP'),
@@ -707,8 +688,7 @@ INSERT INTO security_type VALUES
 (NULL,'акция обыкновенная','UPRO'),
 (NULL,'акция обыкновенная','URKA'),
 (NULL,'акция обыкновенная','URKZ'),
-(NULL,'акция обыкновенная','USBN');
-INSERT INTO security_type VALUES
+(NULL,'акция обыкновенная','USBN'),
 (NULL,'акция обыкновенная','UTAR'),
 (NULL,'акция обыкновенная','UTSY'),
 (NULL,'акция обыкновенная','UWGN'),
@@ -755,7 +735,7 @@ CREATE TABLE orders (
 );
 
 DESCRIBE orders;
-
+#для проверки работоспособности дальнейших команд пришлось наполнить таблицу orders через команду insert, потому что иначе данные не получалось вставить (проблему описала выше)
 INSERT INTO orders VALUES ('1','PLSM','S','100000000','1','1','0.32','36000',NULL, NULL),
 ('2','ALRS','S','100000000','2','1','67.75','300',NULL,NULL),
 ('3','VTGK','B','100000000','3','1','0.66','15000',NULL,NULL),
