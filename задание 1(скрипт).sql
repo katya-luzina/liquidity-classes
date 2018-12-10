@@ -799,8 +799,8 @@ CREATE TABLE orders_bonds
     PRIMARY KEY (id)
 );
 
-SELECT * FROM orders
-SELECT * FROM security_type
+SELECT * FROM orders;
+SELECT * FROM security_type;
 
 #заполнение таблицы заявок по обыкновенным акциям на основе orderlog и справочника типов инструментов
 INSERT INTO orders_ordinary_shares
@@ -810,7 +810,7 @@ FROM orders a1
 	ON a1.seccode = a2.seccode
 WHERE a2. instrument_type = 'акция обыкновенная';
 
-SELECT * FROM orders_ordinary_shares
+SELECT * FROM orders_ordinary_shares;
 
  #заполнение таблицы заявок по привилегированным облигациям на основе orderlog и справочника типов инструментов
 INSERT INTO orders_preference_shares
@@ -820,7 +820,7 @@ FROM orders a1
 	ON a1.seccode = a2.seccode
 WHERE a2. instrument_type = 'акция привилегированная';
 
-SELECT * FROM orders_preference_shares
+SELECT * FROM orders_preference_shares;
 
 #заполнение таблицы заявок по корпоративным облигациям на основе orderlog и справочника типов инструментов
 INSERT INTO orders_bonds
@@ -830,18 +830,19 @@ FROM orders a1
 	ON a1.seccode = a2.seccode
 WHERE a2. instrument_type = 'корпоративная облигация';
 
-SELECT * FROM orders_bonds
+SELECT * FROM orders_bonds;
 
 #проверка на наличие в orderlog инструментов, которые не указаны в справочнике. В случае отсутствия данных по типу одного из инструментов, в правом столбце таблицы будет выведено NULL
 SELECT a1.seccode, a2.instrument_type
 	FROM orders a1
     LEFT OUTER JOIN security_type a2
     ON a1.seccode=a2.seccode
-    ORDER BY a1.seccode
+    ORDER BY a1.seccode;
     
-#поиск инструмента, по которому было совершено наибольшее количество сделок (первый в списке)
+#поиск инструмента, по которому было совершено наибольшее количество сделок
 SELECT seccode, orderno, COUNT(*) 
 	FROM orders_ordinary_shares
     WHERE tradeno IS NOT NULL 
     GROUP BY seccode, orderno
     ORDER BY COUNT(*) DESC
+    LIMIT 1;
