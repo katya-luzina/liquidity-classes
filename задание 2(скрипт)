@@ -4,40 +4,41 @@ import pymysql.cursors
 import pandas as pd
 
 
-# Установка подключения к базе данных. Поля host, user, password, db заполняются самостоятельно
-# При успешном подключении появится  connect successful!! 
-
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='root',                             
-                             db='orders',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-print ("connect successful!!")
+# Определение функции для установления соединения с базой. Поля host, user, password, db заполняются самостоятельно
+def getConnection():
+     
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='',                             
+                                 db='orders',
+                                 charset='utf8mb4',
+                                 cursorclass=pymysql.cursors.DictCursor)
+    return connection
 
 
 # Вывод списка инструментов, по которым можно построить очередь заявок
 
+connection = getConnection()
 with connection.cursor() as cursor:
         sql = "SELECT seccode FROM security_type order by instrument_type, seccode"
         cursor.execute(sql)
         table = pd.DataFrame(cursor.fetchall())
-        connection.close()
         print(table)
+connection.close()
 
 
-# Присвоить переменной a значение тикера, данные по которому необходимо запросить. Список доступных тикеров можно получить, выполнив команду выше
+# Присвоение переменной a значение тикера, данные по которому необходимо запросить. Список доступных тикеров можно получить, выполнив команду выше
 
 a = input('Введите тикер  ')
 
 
-# Присвоить переменной b момент времени, данные на который необходимо запросить. Момент времени должен быть записан в формате HHMMSSQQQ
+# Присвоение переменной b момента времени, данные на который необходимо запросить. Момент времени должен быть записан в формате HHMMSSQQQ
 
 b = int(input('Введите момент времени в течение торговой сессий  '))
 if (b>0) and (b<235999999):
 
 
-# Вывести введенные пользователем значения, для того чтобы дать ему возможность проверить правильность введенных значений
+# Вывод введенных пользователем значений, для того чтобы дать ему возможность проверить правильность введенных значений
 
 print ('Вы запросили очередь заявок по инструменту', a, 'на момент времени', b)
 else:
@@ -46,7 +47,7 @@ else:
     print ('Вы запросили очередь заявок по инструменту', a, 'на момент времени', b)
 
 
-# Вывести список всех записей, которые удовлетворяют условиям, которые ввел пользователь
+# Вывод всех записей, которые удовлетворяют условиям, введенным пользователем (на данный момент возникает ошибка при написании 'and ordertime <=b', поэтому придется вручную менять число в коде
 
 with connection.cursor() as cursor:
         sql = "SELECT * FROM orders where seccode = 'ALRS' and ordertime <= 100000000"
@@ -57,7 +58,7 @@ with connection.cursor() as cursor:
             print(row)
 
 
-# Вывести список уровней цен и соответствующих им объемов на стороне BUY
+# Вывод списка уровней цен и соответствующих им объемов на стороне BUY
 
 if (seccode = a) and (ordertime <= b) and (buysell = 'B'):
     d == 0 #счетчик накопленного объема
@@ -71,7 +72,7 @@ if (seccode = a) and (ordertime <= b) and (buysell = 'B'):
     print (i, ' ', d) #вывод списка цен и накопленных объемов на каждом уровне цены на стороне BUY
  
  
-# Вывести список уровней цен и соответствующих им объемов на стороне SELL
+# Вывод списка уровней цен и соответствующих им объемов на стороне SELL
 
 if (seccode = a) and (ordertime <= b) and (buysell = 'S'):
     f == 0 #счетчик накопленного объема
