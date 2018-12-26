@@ -36,6 +36,7 @@ CREATE TABLE orders (
 );
 
 #загрузка orderlog в таблицу
+#ВНИМАНИЕ! КОСТЫЛЬ! для загрузки данных ордерлога в базу придется предварительно заменить все пустоты на NULL
 LOAD DATA INFILE '/Users/ekaterina/Desktop/w/IT/OrderLog20150901/OrderLog20150901.txt' 
 	INTO TABLE orders
 	FIELDS TERMINATED BY ','
