@@ -49,42 +49,30 @@ else:
 # Вывод всех записей, которые удовлетворяют условиям, введенным пользователем
 # ВНИМАНИЕ! КОСТЫЛЬ! возникает ошибка при написании 'and ordertime <=b', как ее исправить, не разобралась, поэтому придется вручную менять время в коде
 
+connection = getConnection()
 with connection.cursor() as cursor:
-        sql = "SELECT * FROM orders where seccode = 'ALRS' and ordertime <= 100000000"
-        cursor.execute(sql)
-        print ("cursor.description: ", cursor.description)
-        print()
-        for row in cursor:
-            print(row)
+        cursor.execute("SELECT * FROM orders WHERE (seccode = 'a') AND ordertime < 101000000;")
+        rows = cursor.fetchall()
+        
+#Попытка создать таблицу с данными по ценам и накопленным объемам
+quote = [] #(buysell, price, volume)
+for elem in rows: #движение по строкам из результата запроса в базе
+    if elem[6]==1: #действия для неисполненных заявок
+         for j in quote: #движение по стакану
+            if quote[2] == elem[7]: #действия, если в стакане уже есть такой уровень цены
+                quote[3] += elem[8]
+                quote[1]==elem[3]
+            else: 
+                quote.append([elem[3],elem[7],elem[8]]) #действия, если в стакане нет такого уровня цены
+    else: #действия для отмененных или исполненных заявок
+        for j in quote:
+            if quote[2] == elem [7]: #действия, если в стакане уже есть такой уровень цены
+                quote [3] -= elem[8]
+                quote[1]==elem[3]
+            else:
+                quote.append([elem[3],elem[7],elem[8]]) #действия, если в стакане нет такого уровня цены
+print(quote)
 
-
-# Вывод списка уровней цен и соответствующих им объемов на стороне BUY
-
-if (seccode = a) and (ordertime <= b) and (buysell = 'B'):
-    d == 0 #счетчик накопленного объема
-    i == max (price) #выбор максимальной цены, от которой будет происходить отсчет
-    for i in range (min(price), max(price)+0.05,0.05):
-        d == 0 #счетчик накопленного объема
-        if action == 1:
-            d == d + volume #увеличение объема, если заявка не исполнена
-        else:
-            d == d - volume #уменьшение объема, если заявка отменена или исполнена
-    print (i, ' ', d) #вывод списка цен и накопленных объемов на каждом уровне цены на стороне BUY
- 
- 
-# Вывод списка уровней цен и соответствующих им объемов на стороне SELL
-
-if (seccode = a) and (ordertime <= b) and (buysell = 'S'):
-    f == 0 #счетчик накопленного объема
-    j == max (price) #выбор максимальной цены, от которой будет происходить отсчет
-    for j in range (min(price), max(price)+0.05,0.05):
-        f == 0 #счетчик накопленного объема
-        if action == 1:
-            f == f + volume #увеличение объема, если заявка не исполнена
-        else:
-            f == f - volume #уменьшение объема, если заявка отменена или исполнена
-    print (j, ' ', f) #вывод списка цен и накопленных объемов на каждом уровне цены на стороне SELL
-    
     
 
 
