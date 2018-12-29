@@ -46,23 +46,15 @@ else:
     print ('Вы запросили очередь заявок по инструменту', a, 'на момент времени', b)
 
 
-#Для примера вывод списка из первых десяти записей, которые удовлетворяют условиям, введенным пользователем
+# Вывод всех записей, которые удовлетворяют условиям, введенным пользователем
+# ВНИМАНИЕ! КОСТЫЛЬ! возникает ошибка при написании 'and ordertime <=b', как ее исправить, не разобралась, поэтому придется вручную менять время в коде
+
 connection = getConnection()
 with connection.cursor() as cursor:
-        os = "SELECT * FROM orders WHERE (seccode = '"+a+"') AND (ordertime < '"+str(b)+"') LIMIT 10"
-        cursor.execute(os)
+        cursor.execute("SELECT * FROM orders WHERE (seccode = 'a') AND ordertime < 101000000;")
         rows = cursor.fetchall()
-for row in rows:        
-    print(row)
-connection.close()
-
-
-#Создание таблицы для записи стакана
-quote = pd.DataFrame (columns=['id','buysell', 'price', 'volume'])
-quote
-
-
-#Запрос списка записей, которые удовлетворяют условиям, введенным пользователем
+        
+#Попытка создать таблицу с данными по ценам и накопленным объемам
 connection = getConnection()
 with connection.cursor() as cursor:
         os = "SELECT seccode, buysell, ordertime, action, price, volume FROM orders WHERE (seccode = '"+a+"') AND (ordertime < '"+str(b)+"')"
@@ -84,3 +76,8 @@ with connection.cursor() as cursor:
                     else:
                         quote.append([rec['buysell'],rec['price'],rec['volume']]) #действия, если в стакане нет такого уровня цены
         print(quote)
+
+    
+
+
+
