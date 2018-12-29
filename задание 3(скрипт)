@@ -1,0 +1,56 @@
+#Установка пакетов
+import pymysql.cursors
+import os
+import mysql.connector
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+#Определение функции для установления соединения с базой. Поля host, user, password, db заполняются самостоятельно
+def getConnection():
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='',                             
+                                 db='orders',
+                                 charset='utf8mb4',
+                                 cursorclass=pymysql.cursors.DictCursor)
+    return connection
+    
+
+#Проверка установленного соединения
+connection = getConnection()
+with connection.cursor() as cursor: 
+        st = "SELECT seccode FROM security_type WHERE instrument_type = 'ordinary share' ORDER BY instrument_type, seccode LIMIT 10"
+        cursor.execute(st)
+        print (cursor.description)
+        print()
+        for row in cursor:
+            print(row)        
+connection.close()
+
+#Определение функции для проверки корректности введенного момента времени
+def check(t): 
+    if len(t)==9:
+    # Вывод введенных пользователем значений, для того чтобы дать ему возможность проверить правильность
+        print ('Проверьте введенное время ', t[0:2],':',t[2:4],':',t[4:6])
+    else:
+        print ('Введенное время не соответствует требуемому формату')
+        t = input('Введите время  ')
+        print ('Проверьте введенное время ', t[0:2],':',t[2:4],':',t[4:6])
+        
+
+#Запрос параметров расчета
+# Присвоение переменной k значение тикера, данные по которому необходимо запросить. Список доступных тикеров можно получить, выполнив команду выше
+k = input('Введите один из тикеров из списка выше  ')
+
+
+# Присвавание переменным l,m,n момента времени, который должен быть записан в соответствии со следующим форматом HHMMSSQQQ
+l = input('Введите шаг, который будет определять частоту расчетов  ')
+check(l)
+
+m = input('Введите начало периода расчета ')
+check(m)
+
+n = input('Введите окончание периода расчета ')
+check(n)
