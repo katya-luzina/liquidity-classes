@@ -68,7 +68,7 @@ connection.close()
 
 
 #ВНИМАНИЕ!КОСТЫЛЬ!
-#Загрузка в базу примера стакана, на основе которого будет производиться расчет
+#Загрузка в базу примера стакана, на основе которого будет производиться расчет, ибо нормальный стакан мне так и не удалось построить
 glass = pd.read_csv('/Users/ekaterina/Desktop/w/IT/glass.txt', sep="\n",delimiter="\t", header=0)
 
 
@@ -90,6 +90,12 @@ bestsell = min(glasssell.Price)
 midpoint = (bestbuy+bestsell)/2
 #Расчет спреда
 spread = round(abs(bestbuy-bestsell),1)
-print(bestbuy, bestsell, midpoint, spread)
+#Поиск глубины на стороне покупки
+a = 1
+depthbuy = glassbuy.Buy[:a]
+#Поиск глубины на стороне продажи
+b = len(glasssell)
+depthsell = glasssell.Sell[:b]
+print(bestbuy, bestsell, midpoint, spread,depthbuy, depthsell)
 
 
