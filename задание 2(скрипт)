@@ -46,34 +46,41 @@ else:
     print ('Вы запросили очередь заявок по инструменту', a, 'на момент времени', b)
 
 
-# Вывод всех записей, которые удовлетворяют условиям, введенным пользователем
-# ВНИМАНИЕ! КОСТЫЛЬ! возникает ошибка при написании 'and ordertime <=b', как ее исправить, не разобралась, поэтому придется вручную менять время в коде
-
+#Для примера вывод списка из первых десяти записей, которые удовлетворяют условиям, введенным пользователем
 connection = getConnection()
 with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM orders WHERE (seccode = 'a') AND ordertime < 101000000;")
+        os = "SELECT * FROM orders WHERE (seccode = '"+a+"') AND (ordertime < '"+str(b)+"') LIMIT 10"
+        cursor.execute(os)
         rows = cursor.fetchall()
-        
-#Попытка создать таблицу с данными по ценам и накопленным объемам
-quote = [] #(buysell, price, volume)
-for elem in rows: #движение по строкам из результата запроса в базе
-    if elem[6]==1: #действия для неисполненных заявок
-         for j in quote: #движение по стакану
-            if quote[2] == elem[7]: #действия, если в стакане уже есть такой уровень цены
-                quote[3] += elem[8]
-                quote[1]==elem[3]
-            else: 
-                quote.append([elem[3],elem[7],elem[8]]) #действия, если в стакане нет такого уровня цены
-    else: #действия для отмененных или исполненных заявок
-        for j in quote:
-            if quote[2] == elem [7]: #действия, если в стакане уже есть такой уровень цены
-                quote [3] -= elem[8]
-                quote[1]==elem[3]
-            else:
-                quote.append([elem[3],elem[7],elem[8]]) #действия, если в стакане нет такого уровня цены
-print(quote)
-
-    
+for row in rows:        
+    print(row)
+connection.close()
 
 
+#Создание таблицы для записи стакана
+quote = pd.DataFrame (columns=['id','buysell', 'price', 'volume'])
+quote
 
+
+#Запрос списка записей, которые удовлетворяют условиям, введенным пользователем
+connection = getConnection()
+with connection.cursor() as cursor:
+        os = "SELECT seccode, buysell, ordertime, action, price, volume FROM orders WHERE (seccode = '"+a+"') AND (ordertime < '"+str(b)+"')"
+        cursor.execute(os)
+        for rec in cursor.fetchall():#движение по строкам из результата запроса в базе
+    #print(rec['action'])
+            if rec['action']==1: #действия для неисполненных заявок
+                 for id in quote: #движение по стакану
+                    if quote['price'] == rec['price']: #действия, если в стакане уже есть такой уровень цены
+                        quote['volume'] += rec['volume']
+                        quote['buysell'] == rec['buysell']
+                    else: 
+                        quote.append([rec['buysell'],rec['price'],rec['volume']]) #действия, если в стакане нет такого уровня цены
+            else: #действия для отмененных или исполненных заявок
+                for i in quote:
+                    if quote['price'] == rec ['price']: #действия, если в стакане уже есть такой уровень цены
+                        quote['volume'] -= rec['volume']
+                        quote['buysell'] ==rec['buysell']
+                    else:
+                        quote.append([rec['buysell'],rec['price'],rec['volume']]) #действия, если в стакане нет такого уровня цены
+        print(quote)
