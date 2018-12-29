@@ -1,11 +1,14 @@
-# Установка пакета pymysql
-
+#Установка пакетов
 import pymysql.cursors
+import os
+import mysql.connector
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 
-# Определение функции для установления соединения с базой. Поля host, user, password, db заполняются самостоятельно
+#Определение функции для установления соединения с базой. Поля host, user, password, db заполняются самостоятельно
 def getConnection():
-     
     connection = pymysql.connect(host='localhost',
                                  user='root',
                                  password='',                             
@@ -15,7 +18,7 @@ def getConnection():
     return connection
 
 
-# Вывод списка инструментов, по которым можно построить очередь заявок
+#Вывод списка инструментов, по которым можно построить очередь заявок
 
 connection = getConnection()
 with connection.cursor() as cursor:
@@ -26,19 +29,16 @@ with connection.cursor() as cursor:
 connection.close()
 
 
-# Присвоение переменной a значение тикера, данные по которому необходимо запросить. Список доступных тикеров можно получить, выполнив команду выше
+# Присваивание переменной a значение тикера, данные по которому необходимо запросить. Список доступных тикеров можно получить, выполнив команду выше
 
 a = input('Введите тикер  ')
 
 
-# Присвоение переменной b момента времени, данные на который необходимо запросить. Момент времени должен быть записан в формате HHMMSSQQQ
+# Присваивание переменной b момента времени, данные на который необходимо запросить. Момент времени должен быть записан в формате HHMMSSQQQ
 
 b = int(input('Введите момент времени в течение торговой сессий  '))
 if (b>0) and (b<235999999):
-
-
 # Вывод введенных пользователем значений, для того чтобы дать ему возможность проверить правильность введенных значений
-
 print ('Вы запросили очередь заявок по инструменту', a, 'на момент времени', b)
 else:
     print ('Введенное время не соответствует требуемому формату')
@@ -46,15 +46,24 @@ else:
     print ('Вы запросили очередь заявок по инструменту', a, 'на момент времени', b)
 
 
-# Вывод всех записей, которые удовлетворяют условиям, введенным пользователем
-# ВНИМАНИЕ! КОСТЫЛЬ! возникает ошибка при написании 'and ordertime <=b', как ее исправить, не разобралась, поэтому придется вручную менять время в коде
-
+#Для примера вывод списка из первых десяти записей, которые удовлетворяют условиям, введенным пользователем
 connection = getConnection()
 with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM orders WHERE (seccode = 'a') AND ordertime < 101000000;")
+        os = "SELECT * FROM orders WHERE (seccode = '"+a+"') AND (ordertime < '"+str(b)+"') LIMIT 10"
+        cursor.execute(os)
         rows = cursor.fetchall()
-        
-#Попытка создать таблицу с данными по ценам и накопленным объемам
+for row in rows:        
+    print(row)
+connection.close()
+
+
+#Создание таблицы, в которую будут вноситься данные по состоянию стакана
+quote = pd.DataFrame (columns=['id','buysell', 'price', 'volume'])
+quote
+
+
+#Запрос списка записей, которые удовлетворяют условиям, введенным пользователем
+#НЕ РАБОТАЕТ
 connection = getConnection()
 with connection.cursor() as cursor:
         os = "SELECT seccode, buysell, ordertime, action, price, volume FROM orders WHERE (seccode = '"+a+"') AND (ordertime < '"+str(b)+"')"
@@ -76,8 +85,4 @@ with connection.cursor() as cursor:
                     else:
                         quote.append([rec['buysell'],rec['price'],rec['volume']]) #действия, если в стакане нет такого уровня цены
         print(quote)
-
-    
-
-
-
+ connection.close()
