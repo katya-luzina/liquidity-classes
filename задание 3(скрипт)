@@ -67,7 +67,7 @@ for row in rows:
 connection.close()
 
 
-#Создание пустого массива, который будет иметь следующие поля: Buy, Price, Sell
+#Создание пустого массива, который будет иметь следующие поля Buy, Price, Sell
 glass = []
 
 #Заполнение массива данными из файла
@@ -76,5 +76,19 @@ glass = f.readlines() #Чтение ВСЕХ строк из файла
 f.close #Закрытие соединения
 print(glass) #\t - переход на другой столбец \n - переход на другую строку
 
+glass
+
+
+glass = pd.read_csv('/Users/ekaterina/Desktop/w/IT/glass.txt', sep="\n",delimiter="\t", header=0)
+#data.columns = ["buy", "price", "sell"]
 
 glass
+
+glass.fillna(0)
+
+
+if (glass.Buy!=0):
+    bestbuy = max(glass.Price)
+    print(bestbuy)
+
+
