@@ -67,28 +67,29 @@ for row in rows:
 connection.close()
 
 
-#Создание пустого массива, который будет иметь следующие поля Buy, Price, Sell
-glass = []
-
-#Заполнение массива данными из файла
-f = open('/Users/ekaterina/Desktop/w/IT/glass.txt')
-glass = f.readlines() #Чтение ВСЕХ строк из файла
-f.close #Закрытие соединения
-print(glass) #\t - переход на другой столбец \n - переход на другую строку
-
-glass
-
-
+#ВНИМАНИЕ!КОСТЫЛЬ!
+#Загрузка в базу примера стакана, на основе которого будет производиться расчет
 glass = pd.read_csv('/Users/ekaterina/Desktop/w/IT/glass.txt', sep="\n",delimiter="\t", header=0)
-#data.columns = ["buy", "price", "sell"]
-
-glass
-
-glass.fillna(0)
 
 
-if (glass.Buy!=0):
-    bestbuy = max(glass.Price)
-    print(bestbuy)
+#Замена значений типа NaN на нули
+glass=glass.fillna(0)
+
+
+#Разделение стакана на 2 датафрейма: очередь на стороне покупки (glassbuy) и очередь на стороне продажи (glasssell)
+mask = glass['Buy'] == 0
+mask
+glasssell, glassbuy = glass[mask], glass[~mask]
+
+
+#Поиск лучшей цены на покупку
+bestbuy = max(glassbuy.Price)
+#Поиск лучшей цены на продажу
+bestsell = min(glasssell.Price)
+#Расчет мидпоинта
+midpoint = (bestbuy+bestsell)/2
+#Расчет спреда
+spread = round(abs(bestbuy-bestsell),1)
+print(bestbuy, bestsell, midpoint, spread)
 
 
