@@ -14,6 +14,7 @@ CREATE TABLE security_type
 DESCRIBE security_type;
 
 #скрипт для наполнения справочника типов ценных бумаг через файл, который был выгружен с сайта moex.com и обработан в Excel (удалены лишние столбцы, удалены типы инструментов, которые не нужны для данного задания)
+#НЕОБХОДИМО ИЗМЕНИТЬ ПУТЬ!
 LOAD DATA
 	INFILE '/Users/ekaterina/Desktop/w/IT/SecurityList.txt'
     INTO TABLE security_type
@@ -36,6 +37,7 @@ CREATE TABLE orders (
 );
 
 #загрузка orderlog в таблицу
+#НЕОБХОДИМО ИЗМЕНИТЬ ПУТЬ!
 #ВНИМАНИЕ! КОСТЫЛЬ! для загрузки данных ордерлога в базу придется предварительно заменить все пустоты на NULL
 LOAD DATA INFILE '/Users/ekaterina/Desktop/w/IT/OrderLog20150901/OrderLog20150901.txt' 
 	INTO TABLE orders
