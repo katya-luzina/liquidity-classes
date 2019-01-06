@@ -45,6 +45,34 @@ LOAD DATA INFILE '/Users/ekaterina/Desktop/w/IT/OrderLog20150901/OrderLog2015090
 	ENCLOSED BY '"'
 	LINES TERMINATED BY '\r\n';
 
+#ПОИСК ОШИБОК В ОРДЕРЛОГЕ
+#создание таблицы, куда будут сложены ошибки
+CREATE TABLE IF NOT EXISTS mistakes
+	(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	seccode VARCHAR(30),
+	buysell CHAR(1),
+	ordertime BIGINT,
+	orderno BIGINT,
+	action ENUM('0', '1', '2'),
+	price FLOAT,
+	volume BIGINT,
+	tradeno BIGINT,
+	tradeprice FLOAT,
+	PRIMARY KEY (id)
+	);
+
+#запись в таблицу записей с очевидными ошибками
+INSERT INTO mistakes
+SELECT *
+FROM orders
+WHERE price <= 0 or price = NULL or volume <= 0 or volume = NULL;
+
+#удаление из основной таблицы записей с очевидными ошибками
+DELETE
+FROM orders
+WHERE price <= 0 or price = NULL or volume <= 0 or volume = NULL;
+
  #создание таблицы для загрузки в нее данных из orderlog по заявкам по обыкновенным акциям
  CREATE TABLE orders_ordinary_shares
  (
@@ -61,6 +89,7 @@ LOAD DATA INFILE '/Users/ekaterina/Desktop/w/IT/OrderLog20150901/OrderLog2015090
 	PRIMARY KEY (id)
 );
 
+#ОБЫКНОВЕННЫЕ АКЦИИ
 #заполнение таблицы заявок по обыкновенным акциям на основе orderlog и справочника типов инструментов
 INSERT INTO orders_ordinary_shares
 SELECT a1.*
@@ -79,6 +108,7 @@ CREATE INDEX iovolume ON orders_ordinary_shares(volume);
 SELECT * FROM orders_ordinary_shares
 LIMIT 10;
 
+#ПРИВИЛЕГИРОВАННЫЕ АКЦИИ
 #создание таблицы для загрузки в нее данных из orderlog по заявкам по привилегированным акциям
 CREATE TABLE orders_preference_shares
  (
@@ -112,6 +142,7 @@ CREATE INDEX ipvolume ON orders_preferred_shares(volume);
 
 SELECT * FROM orders_preference_shares LIMIT 10;
 
+#ОБЛИГАЦИИ
 #создание таблицы для загрузки данных из orderlog по заявкам по облигациям
 CREATE TABLE orders_bonds
  (
